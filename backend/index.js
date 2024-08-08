@@ -38,11 +38,11 @@ app.use('/api/v1/doctors', doctorRoute);  //doamin/api/v1/auth/doctor
 app.use('/api/v1/reviews',reviewRoute)   //doamin/api/v1/auth/doctor
 app.use("/api/v1/bookings",bookingRoute)
 
-app.use(express.static(path.join(__dirname,"frontend/dist")))
+app.use(express.static(path.join(__dirname, "/frontend/dist")));
 
-app.get("*",(req,res)=>{
-    res.sendFile(path.join(__dirname,"frontend","dist","index.html"))
-})
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
+});
 
 //database connection
 
