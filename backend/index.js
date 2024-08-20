@@ -8,9 +8,9 @@ import userRoute from '../backend/Routers/user.js'
 import doctorRoute from '../backend/Routers/doctor.js'
 import reviewRoute from '../backend/Routers/review.js'
 import bookingRoute from '../backend/Routers/booking.js'
-import path from 'path';
 
-dotenv.config()
+
+dotenv.config();
 
 const app = express()
 const port = process.env.PORT || 8000
@@ -19,7 +19,7 @@ const corsOptions = {
     origin: true
 }
 
-const __dirname = path.resolve()
+
 
 
 //middleware
@@ -38,25 +38,23 @@ app.use('/api/v1/doctors', doctorRoute);  //doamin/api/v1/auth/doctor
 app.use('/api/v1/reviews',reviewRoute)   //doamin/api/v1/auth/doctor
 app.use("/api/v1/bookings",bookingRoute)
 
-app.use(express.static(path.join(__dirname, "/frontend/dist")));
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
-});
 
 //database connection
 
-mongoose.set('strictQuery', false)
+mongoose.set('strictQuery', false);
 
 const connectDB = async () => {
-    
-        await mongoose.connect(process.env.MONGO_URL)
+    try {
+        await mongoose.connect(process.env.MONGO_URL);
+        console.log('MongoDB is Connected');
+    } catch (err) {
+        console.log('MongoDB connection failed', err);
+    }
+};
 
-        .then(() => console.log('Connected to MongoDB'))
-        .catch((err) => console.error('Failed to connect to MongoDB', err));
-    
 
-}
+
 
 
 
